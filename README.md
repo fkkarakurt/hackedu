@@ -7,5 +7,3 @@
 ### Linux
 - [Murat Demirten - Linux Sistem Programlama](https://demirten.gitbooks.io/linux-sistem-programlama/content/)
 - [Taylan Özgür Bildik - Linux Dersleri](https://www.linuxdersleri.net/)
-
-==> [PDFs](https://github.com/fkkarakurt/hackedu/tree/main/PDF) <==

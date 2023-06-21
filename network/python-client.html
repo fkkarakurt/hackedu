@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Etik Hacking - server.py</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>server.py</h1>
+      </header>
+      <hr />
+      <section class="section">
+        <h2>
+          <a href="../index.html">--> cd /home</a>
+        </h2>
+      </section>
+
+      <section class="section">
+        <h2>
+          <a href="../network/index.html">--> cd /home/network</a>
+        </h2>
+      </section>
+      <hr />
+      <pre><code>
+import socket
+
+# Sunucu bilgilerini ayarla
+server_ip = '127.0.0.1'  # Sunucu IP adresi
+server_port = 12345  # Sunucu portu
+
+# Soket oluştur ve sunucuya bağlan
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((server_ip, server_port))
+
+while True:
+    # Kullanıcıdan mesaj al
+    message = input("Gönderilecek mesajı girin (Çıkmak için q/Q): ")
+
+    if message.lower() == 'q':
+        break
+
+    # Mesajı sunucuya gönder
+    client_socket.send(message.encode())
+
+    # Sunucudan gelen yanıtı al
+    response = client_socket.recv(1024).decode()
+    print("Sunucudan gelen yanıt:", response)
+
+# Bağlantıyı kapat
+client_socket.close()
+
+</code></pre>
+      <hr />
+      <footer>
+        <p>&copy; 2023 | <a href="https://github.com/fkkarakurt">FK</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

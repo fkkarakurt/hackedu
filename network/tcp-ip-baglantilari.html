@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Etik Hacking - TCP/IP</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Temel TCP/IP</h1>
+      </header>
+      <hr />
+      <section class="section">
+        <h2>
+          <a href="../index.html">--> cd /home</a>
+        </h2>
+      </section>
+
+      <section class="section">
+        <h2>
+          <a href="../network/index.html">--> cd /home/network</a>
+        </h2>
+      </section>
+      <hr />
+      <h2>​Protokoller Nedir</h2>
+      <p>
+        Protokoller basitçe üzerinde anlaşmaya varılmış bir iletişim yöntemidir.
+        Örneğin, günlük hayatta tüm kuralları ve grameri ile iletişim kurma
+        yolumuz olarak Türkçe'dir. Aynı şekilde bunu bir protokol olarak
+        düşünebiliriz.Eğer üzerinde anlaşmaya vardığımız bir iletişim yolu
+        olmasaydı, insanlar birçok dili, grameri ve kuralı kullanıyor olurdu ve
+        hiçbirimiz birbirimizi anlamazdık.
+      </p>
+      <p>
+        Protokoller birbirlerine benzerler. Bir protokol, tüm kurallarıyla
+        basitçe bir iletişim yolunu tanımlar. Bu kurallar genellikle bir
+        <strong>RFC (Request for Comments)</strong>
+        tarafından tanımlanır. ​İnternette kullanımda olan birçok protokol var.
+        Bunlardan bazıları:
+      </p>
+      <ul>
+        <li>TCP</li>
+        <li>IP</li>
+        <li>UDP</li>
+        <li>FTP</li>
+        <li>HTTP</li>
+        <li>SMTP</li>
+        <li>...</li>
+      </ul>
+
+      <p>
+        Her birinin etkili bir şekilde iletişim kurmak için uyulması gereken
+        kendi kuralları vardır. Ancak genellikle üzerinde en çok kafa
+        yoracağımız protokoller
+        <strong><a href="ip.html">IP</a></strong> ve <strong>TCP</strong>.
+      </p>
+
+      <h2>TCP (Transmission Control Protocol)</h2>
+      <img src="res/tcp-arch.webp" />
+      <h3>1. Sıra</h3>
+      <p>
+        <strong>Source Port/Destination Port: </strong>Muhtemelen en önemlisi,
+        bunlar kaynak port ve hedef porttur. Bu alanlar, iletişimin hangi
+        bağlantı noktasından geldiğini (kaynak) ve nereye gittiğini (hedef)
+        belirler.
+      </p>
+      <h3>2. Sıra</h3>
+      <p>
+        <strong>Sequence Number: </strong>Sequence number, kaynak makinenin TCP
+        yığını tarafından üretilir ve geldiklerinde paketlerin uygun sırada
+        düzenlendiğinden emin olmak için kullanılır.
+        <em
+          >MITM (Man in the Middle) saldırılarını savunmak için önemlidir. MITM
+          ile ilgili örnek bir saldırı senaryosu gerçekleştireceğimiz için
+          şimdilik geçiyorum.</em
+        >
+      </p>
+      <h3>3. Sıra</h3>
+      <p>
+        <strong>Acknowledgement Number: </strong>Bu, alıcı sistem tarafından
+        geri gönderilen sequence number'ın bir yankısıdır. Gönderen, belirli bir
+        süre içinde bir acknowledgement number almazsa, alıcının paketi
+        aldığından emin olmak için paketi yeniden gönderir. Böylece TCP ile daha
+        güvenli bir iletişim ortamı oluşur. (Örneğin, aynı şey UDP için geçerli
+        değildir, UDP bunu yapmaz ve bu nedenle daha az güvenilirdir.)
+      </p>
+      <h3>4. Sıra</h3>
+      <p>
+        Dördüncü satır biraz kritik. Data Offset ve Reserved alanlarını geçelim.
+        Çünkü bunlar segmentin veri tutmaları ile ilgili bu yüzden burayla çok
+        ilgilenmek vakit kaybı olacatır. Bu yüzden doğrudan 8 bitin olduğu yere
+        gidebiliriz. İşte burası <strong>üç yollu el sıkışma</strong>nın ve
+        <strong>nmap taramaları</strong>nın önemli olduğu alan.
+      </p>
+      <p>
+        İlk iki bit, CWR ve ECE, tıkanıklık ile ilgili olduğu için etik hacking
+        için pek işimize yaramıyor.
+      </p>
+      <p>
+        Sonraki altı bit URG, ACK, PSH, RST, SYN ve FIN bayraklarıdır. Bu
+        bayraklar, TCP tarafından iletişim kurmak için kullanılır:
+      </p>
+      <ul>
+        <li>SYN: Yeni bir bağlantının açılması.</li>
+        <li>
+          FIN: Bir bağlantının normal, "yavaşça" veya "yumuşak" kapanması.
+        </li>
+        <li>
+          ACK: Bir paketin onaylanması. Üç yollu el sıkışmadan sonraki tüm
+          paketler bu bit setine sahip olmalıdır.
+        </li>
+        <li>
+          RST: Bir bağlantının kapanması ve genellikle paketin yanlış bağlantı
+          noktasına veya IP'ye ulaştığını bildirmek için kullanılır.
+        </li>
+        <li>URG: Bu bayrak, aşağıdaki verilerin acil olduğunu gösterir.</li>
+        <li>PSH: Verileri tampondan uygulamaya aktarın.</li>
+      </ul>
+      <p>
+        Tüm bunları bilmek günlük hayatta çok az işe yarayacak olsa da, Nmap
+        veya Hping3 gibi keşif araçlarını kullanırken, tüm bu bayrakları
+        kullanacağız. Elbette bunun otomatize edilmiş daha pratik yolları ve
+        örnek kullanımları da var. Ancak, standart veya varsayılan örneklerden
+        uzak bayrak kombinasyonlarını denemek, çok güvenli bir sistemden yanıt
+        almak için önemlidir. Hatta keşif taraması yaptığınız hedef platformda
+        yer alan savunma araçları, bu varsayılan bayrak kullanımlarına göre,
+        gelen istekleri engellerler ve sizi sistemden banlarlar. Ancak farklı
+        bayrak kombinasyonları kullanmak tespitten kaçmayı kolaylaştırır.
+      </p>
+      <p>
+        <strong>Window Size: </strong>TCP yığınının paketleri tamponlamak
+        zorunda olduğu pencerenin boyutunu iletmektir. Bu, TCP'nin akış
+        kontrolünü yönetme şeklidir. Keşif veya adli bilişim güvenliği
+        açısından, bu alan tek başına paketi gönderen işletim sistemini
+        belirlemek için yeterli olabilir. İşletim sisteminden işletim sistemine
+        göre değişir. Bu bilgi parçası göz önüne alındığında, paketi gönderen
+        işletim sistemini yaklaşık %80 doğrulukla tahmin etmek mümkündür.
+      </p>
+      <h3>5. Sıra</h3>
+      <p>
+        <strong>Checksum: </strong>Bu alan, hataları kontrol etmek için basit
+        bir algoritma kullanır. Bir bütünlük denetleyicisidir.
+      </p>
+      <p>
+        <strong>URG Pointer: </strong> Bu alan, acil verilerin sequence
+        number'ının son baytını gösterir. Bu alanı etkinleştirmek için URG
+        bayrağı ayarlanmalıdır.
+      </p>
+      <h3>6. Sıra</h3>
+      <p>
+        <strong>Options: </strong>TCP başlığı için değişken uzunluktaki bazı
+        kullanılabilecek değişkenler.
+      </p>
+      <p>
+        <strong>Padding: </strong>TCP başlığını 32 bitin katına getirmek için
+        gereklidir.
+      </p>
+      <hr />
+      <footer>
+        <p>&copy; 2023 | <a href="https://github.com/fkkarakurt">FK</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

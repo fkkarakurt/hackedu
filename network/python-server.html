@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Etik Hacking - server.py</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>server.py</h1>
+      </header>
+      <hr />
+      <section class="section">
+        <h2>
+          <a href="../index.html">--> cd /home</a>
+        </h2>
+      </section>
+
+      <section class="section">
+        <h2>
+          <a href="../network/index.html">--> cd /home/network</a>
+        </h2>
+      </section>
+      <hr />
+      <h3>Adım 1: Gerekli modüller</h3>
+      <pre><code>
+import socket
+    </code></pre>
+      <h3>Adım 2: IP adresi ve portu belirliyoruz</h3>
+      <pre><code>
+HOST = '127.0.0.1'  # localhost
+PORT = 12345
+      </code></pre>
+      <h3>Adım 3: Bir soket oluşturuyoruz</h3>
+      <pre><code>
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      </code></pre>
+      <p>
+        AF_INET parametresi, IPv4 adreslerini kullanacağımızı belirtiyor.
+        SOCK_STREAM parametresi ise TCP'yi kullanacağımızı belirtir. Bunlarla
+        ilgili daha sonra ayrıntılı bir içerik hazırlayacağım.
+      </p>
+      <h3>Adım 4: Soketi, IP adresi ve porta bağlayabiliriz</h3>
+      <pre><code>
+server_socket.bind((HOST, PORT))
+      </code></pre>
+      <h3>Adım 5: Bağlantıları dinlemek için soketi hazırlıyoruz</h3>
+      <pre><code>
+server_socket.listen()
+      </code></pre>
+      <h3>Adım 6: Client bağlantılarını kabul etmeliyiz</h3>
+      <pre><code>
+while True:
+    client_socket, client_address = server_socket.accept()
+    print(f"Baglanti alindi: {client_address[0]}:{client_address[1]}")
+    
+    # İstemciyle iletişim kurmak için yeni bir iş parçacığı başlat
+    client_thread = threading.Thread(target=handle_client, args=(client_socket,))
+    client_thread.start()
+      </code>
+    </pre>
+      <p>
+        accept() metodu, bir istemci bağlantısı alındığında çalışır ve bir
+        client_socket nesnesi ve istemcinin adresini döndürür. Ardından, her
+        istemci için ayrı bir iş parçacığı başlatıyoruz (handle_client işlevi,
+        istemciyle iletişim kurmak için ayrıntılı kod içermelidir).
+      </p>
+      <h3>Adım 7: İstemci isteklerini işlemeliyiz</h3>
+      <pre><code>
+def handle_client(client_socket):
+    while True:
+        data = client_socket.recv(1024)  # İstemciden veri alınır
+        if not data:
+            break  # Eğer veri alınmadıysa döngüyü sonlandır
+        response = process_data(data)  # Gelen veriyi işle
+        client_socket.sendall(response)  # İstemciye yanıtı gönder
+
+    client_socket.close()  # İstemci soketini kapat
+      </code></pre>
+      <p>
+        Bu adımda, istemciyle iletişimi gerçekleştiren bir işlev olan
+        handle_client işlevini tanımlıyoruz. İşlev, istemciden veri alır, veriyi
+        işler ve istemciye yanıt gönderir. İstemci verisi alınmadığında döngü
+        sonlandırılır ve istemci soketi kapatılır.
+      </p>
+      <h3>Sonuç:</h3>
+      <pre><code>
+import socket
+import threading
+
+HOST = '127.0.0.1'  # localhost
+PORT = 12345
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+server_socket.bind((HOST, PORT))
+
+server_socket.listen()
+
+
+while True:
+    client_socket, client_address = server_socket.accept()
+    print(f"Bağlantı alındı: {client_address[0]}:{client_address[1]}")
+    
+    # İstemciyle iletişim kurmak için yeni bir iş parçacığı başlatın
+    client_thread = threading.Thread(target=handle_client, args=(client_socket,))
+    client_thread.start()
+
+    def handle_client(client_socket):
+        while True:
+            data = client_socket.recv(1024)  # İstemciden veri alınır
+            if not data:
+                break  # Eğer veri alınmadıysa döngüyü sonlandır
+            response = process_data(data)  # Gelen veriyi işle
+            client_socket.sendall(response)  # İstemciye yanıtı gönder
+
+        client_socket.close()  # İstemci soketini kapat
+
+      </code></pre>
+      <h3>Alternatif:</h3>
+      <pre><code>
+import socket
+
+# Sunucu IP adresi ve port numarası
+HOST = '127.0.0.1'
+PORT = 12345
+
+# TCP soketi oluşturma
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+    # IP adresi ve port numarasıyla soketi bağlama
+    server_socket.bind((HOST, PORT))
+    
+    # Bağlantıları dinleme
+    server_socket.listen()
+
+    print(f"Sunucu {HOST}:{PORT} üzerinde dinlemede...")
+
+    # Bağlantıyı kabul etme
+    client_socket, client_address = server_socket.accept()
+    print(f"{client_address} adresinden bir istemci bağlandı.")
+
+    # İstemciden gelen verileri almak ve işlemek için döngü
+    while True:
+        # İstemciden veri al
+        data = client_socket.recv(1024)
+        if not data:
+            # Veri alınmadıysa bağlantıyı kapat
+            break
+        
+        # Gelen veriyi işle
+        received_data = data.decode()
+        print(f"Gelen veri: {received_data}")
+        
+        # İstemciye yanıt gönder
+        response = f"Sunucudan yanıt: {received_data}"
+        client_socket.sendall(response.encode())
+    
+    # Bağlantıları kapat
+    client_socket.close()
+      </code></pre>
+      <hr />
+      <footer>
+        <p>&copy; 2023 | <a href="https://github.com/fkkarakurt">FK</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Etik Hacking - HTTP</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>HTTP (HyperText Transfer Protocol)</h1>
+      </header>
+      <hr />
+      <section class="section">
+        <h2>
+          <a href="../index.html">--> cd /home</a>
+        </h2>
+      </section>
+
+      <section class="section">
+        <h2>
+          <a href="../network/index.html">--> cd /home/network</a>
+        </h2>
+      </section>
+
+      <hr />
+      <p>
+        HTTP, web teknolojilerinin dedesi gibidir. Web'in temel iletişim
+        protokolüdür ve tüm web uygulamaları bunu kullanır. Başlangıçta statik
+        web sayfalarını almak için tasarlanmış basit bir protokoldü. Ancak
+        yıllar geçtikçe, günümüzde yaygın olan karmaşık uygulamalara destek
+        sunmak için güncellendi ve genişletildi.
+      </p>
+      <p>
+        HTTP, istemcinin bir istek gönderdiği ve sunucunun bir yanıtla yanıt
+        verdiği mesaj tabanlı bir model kullanır. Bağlantısızdır, ancak aktarım
+        mekanizması olarak TCP kullanır.
+      </p>
+      <h2>HTTP İstekleri (Requests)</h2>
+      <pre><code>
+        GET /software/htp/cics/index.html HTTP/1.1
+      </code></pre>
+      <img width="100%" src="res/req.webp" />
+      <h2>HTTP Yanıtları (Responses)</h2>
+      <img width="100%" src="res/res.webp" />
+      <h2>HTTP Methods</h2>
+      <p>
+        Web uygulamalarına saldırdığımızda, genellikle web sunucusuna bir
+        istekte bulunuruz. Bu, yöntemlerimizin muhtemelen bir POST veya GET
+        olacağı anlamına gelir. Bu iki istek arasında ince farklar vardır.
+      </p>
+      <ul>
+        <li>GET yöntemi , kaynakları almak için oluşturulmuştur.</li>
+        <li>POST yöntemi , eylemleri gerçekleştirmek için oluşturulmuştur.</li>
+        <li>
+          HEAD, GET isteğine benzer şekilde çalışır, ancak ileti gövdesi
+          döndürülmez.
+        </li>
+        <li>TRACE tanı amaçlı kullanılır</li>
+        <li>
+          OPTIONS, sunucudan HTTP yöntemlerinin kullanılabilir olduğunu
+          bildirmesini ister
+        </li>
+        <li>PUT, gövdede bulunan sunucuya bir kaynak yüklemeye çalışır.</li>
+      </ul>
+      <h2>URL ?</h2>
+      <p>
+        Tek tip kaynak bulucu (URL), kaynağın alınabileceği her web kaynağı için
+        benzersiz bir kimliktir. Bu, web'deki bilgilere erişmek için her gün
+        kullandığımız, tamamen tanıdık URL'dir.
+      </p>
+      <pre><code>
+        protokol://hostname[:port]/ [/path/] dosya [?param=değer]
+      </code></pre>
+      <h2>HTTP Headers</h2>
+      <p>
+        HTTP'de çok sayıda HEADERS türü vardır. Bazıları hem istekler hem de
+        yanıtlar için kullanılabilir ve diğerleri mesaj türlerine özeldir.
+        Bunlar, yaygın kullanılan başlık türlerinden bazılarıdır;
+      </p>
+      <h3>General Headers</h3>
+      <table style="width: 100%">
+        <tr>
+          <th>Headers</th>
+          <th>Açıklama</th>
+        </tr>
+        <tr>
+          <td>Connection</td>
+          <td>
+            HTTP iletiminden sonra bağlantının kapanması gerekip gerekmediğini
+            karşı uca söyler
+          </td>
+        </tr>
+        <tr>
+          <td>Content-Encoding</td>
+          <td>kodlama türünü belirtir</td>
+        </tr>
+        <tr>
+          <td>Content-Length</td>
+          <td>içerik uzunluğunu belirtir</td>
+        </tr>
+        <tr>
+          <td>Content-Type</td>
+          <td>içerik türünü belirtir</td>
+        </tr>
+        <tr>
+          <td>Transfer-Encoding</td>
+          <td>mesaj gövdesindeki kodlamayı belirtir</td>
+        </tr>
+      </table>
+      <h3>Request Headers</h3>
+      <table style="width: 100%">
+        <tr>
+          <th>Headers</th>
+          <th>Açıklama</th>
+        </tr>
+        <tr>
+          <td>Accept</td>
+          <td>sunucuya ne tür içeriği kabul edeceğini belirtir</td>
+        </tr>
+        <tr>
+          <td>Accept-Encoding</td>
+          <td>sunucuya ne tür mesaj kodlamasını kabul edeceğini belirtir</td>
+        </tr>
+        <tr>
+          <td>Authorization</td>
+          <td>kimlik bilgilerini gönderir</td>
+        </tr>
+        <tr>
+          <td>Cookie</td>
+          <td>çerezleri sunucuya gönderir</td>
+        </tr>
+        <tr>
+          <td>Host</td>
+          <td>ana bilgisayar adını belirtir</td>
+        </tr>
+        <tr>
+          <td>If-Modified-Since</td>
+          <td>
+            tarayıcının kaynağı en son ne zaman aldığını belirtir.
+            Değiştirilmezse, sunucu istemciye önbelleğe alınmış kopyayı kullanma
+            talimatı verir.
+          </td>
+        </tr>
+        <tr>
+          <td>If-None-Match</td>
+          <td>varlık etiketini belirtir</td>
+        </tr>
+        <tr>
+          <td>Origin</td>
+          <td>isteğin kaynaklandığı etki alanını belirtir</td>
+        </tr>
+        <tr>
+          <td>Referer</td>
+          <td>isteği oluşturanın URL'sini belirtir</td>
+        </tr>
+        <tr>
+          <td>User-Agent</td>
+          <td>isteği oluşturan tarayıcıyı belirtir</td>
+        </tr>
+      </table>
+      <h3>Response Headers</h3>
+      <table style="width: 100%">
+        <tr>
+          <th>Headers</th>
+          <th>Açıklama</th>
+        </tr>
+        <tr>
+          <td>Access-Control-Allow-Origin</td>
+          <td>
+            kaynağın etki alanları arası yoluyla alınıp alınamayacağını belirtir
+          </td>
+        </tr>
+        <tr>
+          <td>Cache-Control</td>
+          <td>önbelleğe alma yönergesini göz atmaya iletir</td>
+        </tr>
+        <tr>
+          <td>Etag</td>
+          <td>
+            bir varlık etiketi belirtir (sunucuya önbellekteki sürümü bildirir)
+          </td>
+        </tr>
+        <tr>
+          <td>Expires</td>
+          <td>
+            mesaj gövdesinin içeriğinin ne kadar süreyle geçerli olduğunu
+            belirtir
+          </td>
+        </tr>
+        <tr>
+          <td>Location</td>
+          <td>yönlendirme yanıtlarında kullanılır (3xx)</td>
+        </tr>
+        <tr>
+          <td>Pragma</td>
+          <td>önbelleğe alma yönergelerini tarayıcıya iletir</td>
+        </tr>
+        <tr>
+          <td>Server</td>
+          <td>web sunucusu yazılımını belirtir</td>
+        </tr>
+        <tr>
+          <td>Set-Cookie</td>
+          <td>çerezleri yayınlar</td>
+        </tr>
+        <tr>
+          <td>WWW-Authenticate</td>
+          <td>desteklenen kimlik doğrulama türünün ayrıntılarını sağlar</td>
+        </tr>
+        <tr>
+          <td>X-Frame-Options</td>
+          <td>
+            tarayıcı çerçevesinde yanıtın yüklenip yüklenmeyeceği ve nasıl
+            yüklenebileceği
+          </td>
+        </tr>
+      </table>
+      <h2>Cookies</h2>
+      <p>
+        Çerezler, HTTP'nin kritik bir parçasıdır. Tanımlama bilgileri, sunucunun
+        istemciye veri öğeleri göndermesini sağlar ve istemci bu verileri
+        depolar ve sunucuya bir sonraki istek yapıldığında sunucuya yeniden
+        gönderir. Sunucu, SET-COOKIE yanıt başlığını kullanarak istemciye bir
+        tanımlama bilgisi verir.
+      </p>
+      <pre><code>
+        SetCookie: Tracking=abcdef12389
+      </code></pre>
+      <p>
+        Kullanıcı sunucuya sonraki bir istekte bulunduğunda, çerez başlığa
+        eklenir.
+      </p>
+      <img src="res/cookies.webp" width="100%" />
+      <p>
+        Tanımlama bilgileri, kullanıcıyı sunucuya ve diğer önemli bilgileri
+        sunucuya tanıtmak için kullanılır. Bu tanımlama bilgileri genellikle bir
+        ad/değer çiftidir ve boşluk içermez.
+      </p>
+      <h2>Status Codes</h2>
+      <p>
+        Her HTTP yanıtı, isteğin sonucunu gösteren bir status kodu içermelidir.
+        Kodun ilk basamağına göre beş grup durum kodu vardır.
+      </p>
+      <table style="width: 100%">
+        <tr>
+          <th>Kod</th>
+          <th>Açıklama</th>
+        </tr>
+        <tr>
+          <td>1xx</td>
+          <td>Bilgilendirici</td>
+        </tr>
+        <tr>
+          <td>2xx</td>
+          <td>Başarı</td>
+        </tr>
+        <tr>
+          <td>3xx</td>
+          <td>Yönlendirme</td>
+        </tr>
+        <tr>
+          <td>4xx</td>
+          <td>Hata</td>
+        </tr>
+        <tr>
+          <td>5xx</td>
+          <td>Sunucu bir hatayla karşılaştı</td>
+        </tr>
+      </table>
+      <p>Karşılaşma ihtimalinizin en yüksek olduğu status kodları:</p>
+      <table style="width: 100%">
+        <tr>
+          <th>Kod</th>
+          <th>Açıklama</th>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>Devam</td>
+        </tr>
+        <tr>
+          <td>200</td>
+          <td>Tamam</td>
+        </tr>
+        <tr>
+          <td>201</td>
+          <td>Oluşturuldu</td>
+        </tr>
+        <tr>
+          <td>301</td>
+          <td>Kalıcı Olarak Taşındı</td>
+        </tr>
+        <tr>
+          <td>302</td>
+          <td>Bulundu</td>
+        </tr>
+        <tr>
+          <td>304</td>
+          <td>Değiştirilmedi</td>
+        </tr>
+        <tr>
+          <td>400</td>
+          <td>Hatalı İstek</td>
+        </tr>
+        <tr>
+          <td>401</td>
+          <td>Yetkisiz</td>
+        </tr>
+        <tr>
+          <td>403</td>
+          <td>Yasak</td>
+        </tr>
+        <tr>
+          <td>404</td>
+          <td>Bulunamadı</td>
+        </tr>
+        <tr>
+          <td>405</td>
+          <td>Yönteme İzin Verilmiyor</td>
+        </tr>
+        <tr>
+          <td>413</td>
+          <td>İstek Varlığı Çok Büyük</td>
+        </tr>
+        <tr>
+          <td>414</td>
+          <td>İstek URI'si Çok Uzun</td>
+        </tr>
+        <tr>
+          <td>500</td>
+          <td>Dahili Sunucu Hatası</td>
+        </tr>
+        <tr>
+          <td>503</td>
+          <td>Hizmet Kullanılamıyor</td>
+        </tr>
+      </table>
+      <br />
+      <img src="res/status.webp" width="100%" />
+      <h2>HTTPS</h2>
+      <p>
+        HTTP protokolü, düz TCP'de iletilir. Şifrelenmemiş olduğu ve MITM
+        saldırılarına ve istemci ile sunucu arasında konumlanmış bir saldırgan
+        tarafından gerçekleştirilen bu tür diğer saldırılara açık olduğu
+        anlamına gelir. HTTPS, temelde HTTP ile aynıdır, ancak bunun yerine
+        Secure Sockets Layer (SSL) kullanılarak tünellenir. Bu sayede verilerin
+        gizliliği ve bütünlüğü korunmaktadır.
+      </p>
+      <h2>HTTP Proxies</h2>
+      <p>
+        HTTP proxy, istemcinin tarayıcısı ile web sunucusu arasındaki bir
+        sunucudur. İstemci tarayıcısı HTTP proxy'sini kullanacak şekilde
+        yapılandırıldığında, İnternet'e yapılan tüm istekler önce proxy'ye
+        gitmelidir. Proxy daha sonra isteği iletir ve istemciyi iletmeden önce
+        yanıtı alır. Bu şekilde, HTTP proxy erişim kontrolü, önbelleğe alma,
+        kimlik doğrulama ve içerik filtreleme sağlayabilir.
+      </p>
+      <hr />
+      <footer>
+        <p>&copy; 2023 | <a href="https://github.com/fkkarakurt">FK</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

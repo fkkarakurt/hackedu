@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Etik Hacking - Portlar</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Portlar ve Anlamları</h1>
+      </header>
+      <hr />
+      <section class="section">
+        <h2>
+          <a href="../index.html">--> cd /home</a>
+        </h2>
+      </section>
+
+      <section class="section">
+        <h2>
+          <a href="../network/index.html">--> cd /home/network</a>
+        </h2>
+      </section>
+      <hr />
+      <p>
+        Portlar bir çeşit alt adrestir. IP adresi birincil adrestir ve bağlantı
+        noktası alt adrestir. Bununla ilgili en çok kullanılan örnek, IP
+        adresini bir binanın sokak adresi ve port'u apartman numarası olarak
+        düşünebilirsiniz. Doğru binaya ulaşmak için sokak adresine ihtiyacınız
+        var ama aradığınız kişiyi bulmak için apartman adresine ihtiyacınız
+        olacak.
+      </p>
+      <p>
+        Bu, portlar için de aynıdır. IP adresi bizi doğru makineye götürür,
+        ancak bağlantı noktası bizi doğru hizmete götürür.
+        <strong>65.536</strong> bağlantı noktası vardır. İlk 1.024 genellikle
+        "ortak bağlantı noktaları" olarak adlandırılır. İnsanlar, 65.536
+        bağlantı noktasının hepsini ve hatta en yaygın 1.024 bağlantı noktasını
+        açıkça hatırlamıyorlar. Ancak bir bilgisayar korsanı, güvenlik mühendisi
+        ve/veya ağ mühendisi olarak ezbere bilinmesi gereken birkaç bağlantı
+        noktası vardır:
+      </p>
+      <table>
+        <tr>
+          <th>Port Numarası</th>
+          <th>Protokol</th>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>FTP</td>
+        </tr>
+        <tr>
+          <td>21</td>
+          <td>FTP</td>
+        </tr>
+        <tr>
+          <td>22</td>
+          <td>SSH</td>
+        </tr>
+        <tr>
+          <td>23</td>
+          <td>Telnet</td>
+        </tr>
+        <tr>
+          <td>25</td>
+          <td>SMTP</td>
+        </tr>
+        <tr>
+          <td>53</td>
+          <td>DNS</td>
+        </tr>
+        <tr>
+          <td>69</td>
+          <td>TFTP</td>
+        </tr>
+        <tr>
+          <td>80</td>
+          <td>HTTP</td>
+        </tr>
+        <tr>
+          <td>88</td>
+          <td>Kerberos</td>
+        </tr>
+        <tr>
+          <td>110</td>
+          <td>POP3</td>
+        </tr>
+        <tr>
+          <td>123</td>
+          <td>NTP</td>
+        </tr>
+        <tr>
+          <td>135</td>
+          <td>Microsoft's RPC</td>
+        </tr>
+        <tr>
+          <td>137-139</td>
+          <td>Microsoft's NetBIOS</td>
+        </tr>
+        <tr>
+          <td>143</td>
+          <td>IMAP</td>
+        </tr>
+        <tr>
+          <td>161</td>
+          <td>SNMP</td>
+        </tr>
+        <tr>
+          <td>389</td>
+          <td>LDAP</td>
+        </tr>
+        <tr>
+          <td>443</td>
+          <td>HTTPS or HTTP over SSL</td>
+        </tr>
+        <tr>
+          <td>445</td>
+          <td>SMB</td>
+        </tr>
+        <tr>
+          <td>500</td>
+          <td>IKE</td>
+        </tr>
+        <tr>
+          <td>514</td>
+          <td>syslog</td>
+        </tr>
+        <tr>
+          <td>3389</td>
+          <td>RDP</td>
+        </tr>
+      </table>
+      <p>
+        Bir ağ keşif aracıyla bir sistemi taradığımızda karşımıza genellikle bu
+        portlar ile karşılaşırız. Bu portlar bize sistemdeki açıkların nerelerde
+        olabileceği hakkında fikirler verir. Eğer bu bize bu fikri veriyorsa,
+        bilgissayar korsanları da bunun kokusunu alırlar. Bu yüzden bir an önce
+        buradaki açıkları bulmamız ve ilgili birime raporlamamız gerekir.
+      </p>
+      <hr />
+      <footer>
+        <p>&copy; 2023 | <a href="https://github.com/fkkarakurt">FK</a></p>
+      </footer>
+    </div>
+  </body>
+</html>
